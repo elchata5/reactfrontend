@@ -2,6 +2,7 @@ import API from "../ConfigUrl";
 import { useState, useEffect, useContext } from "react";
 import { useLocation } from "wouter";
 import loginContext from "../Context/loginContext";
+import {Link} from 'wouter'
 
 export default function NewPersona(prop) {
   const [, setLocation] = useLocation();
@@ -147,6 +148,7 @@ export default function NewPersona(prop) {
                         <option value={person.id}>{person.nombre} {person.apellido}</option>
                     )}
                 </select>
+                <Link className="btn btn-secondary" to='/persona/new/0' >Crear nueva persona</Link>
             </div>
         </div>
         {/* /.card-body */}

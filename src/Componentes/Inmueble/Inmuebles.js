@@ -9,7 +9,7 @@ export default function Usuarios() {
 
 
     useEffect(()=> {
-        API.get("/inmuebles")
+        API.get(`/inmuebles/${userLogin.id}`)
         .then(res=>{
             setInmuebles(res.data)
         })
@@ -34,7 +34,6 @@ export default function Usuarios() {
                 <tr>
                 <th scope="col">Direccion</th>
                 <th scope="col">N°</th>
-                <th scope="col">Inmobiliaria</th>
                 <th scope="col">Propietario</th>
                 <th scope="col">Inquilino</th>
                 <th scope="col">ACCIONES</th>
@@ -44,9 +43,12 @@ export default function Usuarios() {
             {inmuebles.map((inmu)=>
                 <tr>
                     <td>{inmu.direccion}</td>
-                    <td>{inmu.numero}</td>
-                    <td>{inmu.propietario.nombre}</td>
-                    <td>{inmu.inquilino.nombre}</td>
+                    <td>{inmu.num}</td>
+                    <td>{inmu.duenio}</td>
+                    <td>
+                    {(inmu.inquilino !== null) ?
+                    inmu.inquilino.nombre : 'Sin alquilar' }
+                    </td>
                     <td>
                         <Link className="btn btn-info" to={`/inmueble/new/${inmu.id}`}  >Editar</Link>
                         <button onClick={()=>eliminarInmueble(inmu)} className="btn btn-danger" >Elminar </button>

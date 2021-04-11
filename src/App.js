@@ -34,7 +34,7 @@ function App() {
               <div className="container-fluid">
               <Route component={Usuarios} path="/users" />
               <Route component={Inmobiliarias} path="/inmobs" />
-              <Route component={Inmobiliaria} path="/inmob/new/:idProp" />
+              <Route component={Inmobiliaria} path="/inmob/new/:idInmob" />
               <Route component={Inmuebles} path="/inmuebles" />
               <Route component={Inmueble} path="/inmueble/new/:idInmu" />
               <Route component={Persona} path="/persona/new/:idPersona" />

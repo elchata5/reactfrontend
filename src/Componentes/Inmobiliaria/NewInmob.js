@@ -9,15 +9,15 @@ export default function NewInmbiliaria(prop){
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
     const [idEditar, setId] = useState(null)
-    const {idProp} = prop.params
+    const {idInmob} = prop.params
     const {userLogin, } = useContext(loginContext)
 
     useEffect(()=>{
       if ( !Boolean(userLogin) || Number(userLogin.id) !== 43) {
         setLocation('/login')
     }
-      if(Number(idProp) !== 0) {
-        API.get('inmobiliaria/'+ idProp )
+      if(Number(idInmob) !== 0) {
+        API.get('inmobiliaria/'+ idInmob )
         .then((res)=>{
           if (Number(res.status) === 200 ) {
             setNombre(res.data.nombre)
@@ -31,26 +31,31 @@ export default function NewInmbiliaria(prop){
       })
     }
 
-    },[idProp, setLocation, userLogin])
+    },[idInmob, setLocation, userLogin])
     
     const handleSubmit = evt =>{
         evt.preventDefault()
         if (password === password2) {
         if (idEditar) {
-          let aux = idEditar
+          var aux = idEditar
           aux.nombre = nombre
           aux.pass = password
-          API.post('inmobiliaria/save', aux)
-        }
+          console.log(aux)
+          API.post('inmobiliaria/save', aux).then(res=> {
+            alert("Inmobiliaria editada con exito");  
+          })
+          .catch(error =>{
+          console.log(error)
+          })} 
         else{
           console.log(password)
-        API.post('inmobiliaria/save', {nombre , pass:password })
-        .then(res=> {
-          alert("Inmobiliaria creada con exito");  
-      })
-      .catch(error =>{
-        console.log('entro por el error')
-      })}
+          API.post('inmobiliaria/save', {nombre , pass:password })
+            .then(res=> {
+              alert("Inmobiliaria creada con exito");  
+            })
+            .catch(error =>{
+            console.log('entro por el error')
+            })} 
       setLocation('/inmobs')
     }else alert('No son iguales el pasword y la confirmacion')
   }    
@@ -74,7 +79,7 @@ export default function NewInmbiliaria(prop){
         <div className="card card-info">
   <div className="card-header">
     <h3 className="card-title">
-    { (Number(idProp) === 0) ? "Nueva inmobiliaria" : "Editar inmobiliaria" }
+    { (Number(idInmob) === 0) ? "Nueva inmobiliaria" : "Editar inmobiliaria" }
       </h3>
   </div>
   {/* /.card-header */}
